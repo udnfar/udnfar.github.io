@@ -1,129 +1,206 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Saya</title>
-
+    <title>Pendaftaran Santri Baru (PSB) Online</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    <!-- Font Awesome untuk Icon -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary-color: #1e5f40;
+            --secondary-color: #2a8a5c;
+            --dark-color: #1a1a1a;
         }
-
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0f172a, #2563eb);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f5;
+        }
+        .bg-gradient-green {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        .btn-custom {
+            background-color: var(--primary-color);
             color: white;
-            min-height: 100vh;
+            transition: all 0.3s ease;
         }
-
-        header {
-            padding: 20px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        header h2 {
-            color: #93c5fd;
-        }
-
-        nav a {
+        .btn-custom:hover {
+            background-color: var(--secondary-color);
             color: white;
-            text-decoration: none;
-            margin-left: 20px;
+            transform: translateY(-2px);
         }
-
-        nav a:hover {
-            color: #93c5fd;
-        }
-
-        main {
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 30px 20px;
-        }
-
-        main h1 {
-            font-size: clamp(32px, 6vw, 55px);
-            margin-bottom: 20px;
-        }
-
-        main p {
-            font-size: 18px;
-            max-width: 550px;
-            line-height: 1.7;
-            margin-bottom: 30px;
-        }
-
-        button {
-            background: #60a5fa;
-            color: #0f172a;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
+        .step-box {
+            border-top: 4px solid var(--primary-color);
             background: white;
-            transform: translateY(-3px);
-        }
-
-        footer {
-            text-align: center;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+        /* Style Struk Bukti Pendaftaran */
+        #buktiPendaftaran {
+            display: none;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #buktiPendaftaran, #buktiPendaftaran * {
+                visibility: visible;
+            }
+            #buktiPendaftaran {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                display: block !important;
+            }
+            .no-print {
+                display: none !important;
+            }
         }
     </style>
 </head>
-
 <body>
 
-    <header>
-        <h2>WebsiteKu</h2>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-green sticky-top no-print">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#"><i class="fas fa-mosque me-2"></i>PSB Al-Hikmah</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#alur">Alur</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#formulir">Formulir Daftar</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#tentang">Tentang</a>
-        </nav>
+    <!-- Hero Section -->
+    <header id="beranda" class="text-white text-center py-5 bg-gradient-green no-print">
+        <div class="container py-4">
+            <h1 class="display-4 fw-bold">Penerimaan Santri Baru (PSB)</h1>
+            <p class="lead">Tahun Ajaran 2027/2028 Pondok Pesantren Al-Hikmah</p>
+            <a href="#formulir" class="btn btn-light btn-lg text-success fw-bold px-4 py-2 mt-3 shadow">Isi Formulir Sekarang</a>
+        </div>
     </header>
 
-    <main id="home">
-        <h1>Selamat Datang!</h1>
+    <!-- Alur Pendaftaran -->
+    <section id="alur" class="container py-5 no-print">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Alur Pendaftaran Online</h2>
+            <p class="text-muted">Proses mudah pendaftaran calon santri secara digital</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="step-box text-center">
+                    <div class="fs-1 text-success mb-2"><i class="fas fa-wpforms"></i></div>
+                    <h5 class="fw-bold">1. Isi Formulir</h5>
+                    <p class="small text-muted mb-0">Lengkapi data santri dan orang tua secara valid di halaman web ini.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-box text-center">
+                    <div class="fs-1 text-success mb-2"><i class="fas fa-print"></i></div>
+                    <h5 class="fw-bold">2. Simpan Bukti</h5>
+                    <p class="small text-muted mb-0">Setelah berhasil dikirim, cetak atau simpan struk kartu pendaftaran Anda.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-box text-center">
+                    <div class="fs-1 text-success mb-2"><i class="fab fa-whatsapp"></i></div>
+                    <h5 class="fw-bold">3. Konfirmasi WA</h5>
+                    <p class="small text-muted mb-0">Kirim nomor registrasi ke admin WA untuk jadwal tes seleksi masuk.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <p id="tentang">
-            Ini adalah website pertama saya.
-            Dibuat menggunakan HTML, CSS, dan JavaScript
-            dengan tampilan modern dan responsif.
-        </p>
+    <!-- Formulir Pendaftaran -->
+    <section id="formulir" class="py-5 bg-light no-print">
+        <div class="container">
+            <div class="card shadow border-0 mx-auto" style="max-width: 800px;">
+                <div class="card-body p-4 p-md-5">
+                    <h3 class="card-title text-center fw-bold mb-4 text-success"><i class="fas fa-user-graduate me-2"></i>Form Biodata Santri Baru</h3>
+                    
+                    <!-- HTML FORM -->
+                    <form id="registrationForm">
+                        <h5 class="text-dark border-bottom pb-2 mb-3 fw-bold">A. Informasi Santri</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold">Nama Lengkap Santri</label>
+                                <input type="text" id="namaSantri" class="form-control" required placeholder="Sesuai Akta Kelahiran">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Jenis Kelamin</label>
+                                <select id="gender" class="form-select" required>
+                                    <option value="" selected disabled>Pilih jenis kelamin</option>
+                                    <option value="Laki-laki">Laki-laki (Putra)</option>
+                                    <option value="Perempuan">Perempuan (Putri)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Jenjang Sekolah Tujuan</label>
+                                <select id="jenjang" class="form-select" required>
+                                    <option value="" selected disabled>Pilih jenjang pendidikan</option>
+                                    <option value="Madrasah Tsanawiyah (MTs)">Madrasah Tsanawiyah (MTs)</option>
+                                    <option value="Madrasah Aliyah (MA)">Madrasah Aliyah (MA)</option>
+                                    <option value="Tahfidzul Qur'an">Tahfidzul Qur'an (Khusus)</option>
+                                </select>
+                            </div>
+                        </div>
 
-        <button onclick="sapaPengunjung()">
-            Klik Saya
-        </button>
-    </main>
+                        <h5 class="text-dark border-bottom pb-2 mb-3 fw-bold">B. Kontak Orang Tua / Wali</h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Nama Wali / Orang Tua</label>
+                                <input type="text" id="namaWali" class="form-control" required placeholder="Nama lengkap">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Nomor WhatsApp Aktif</label>
+                                <input type="tel" id="noWhatsapp" class="form-control" required placeholder="Contoh: 081234567xxx">
+                                <div class="form-text">Gunakan format angka awal 08 atau 62.</div>
+                            </div>
+                        </div>
 
-    <footer>
-        &copy; 2026 WebsiteKu. Semua hak dilindungi.
-    </footer>
+                        <div class="d-grid mt-4">
+                            <button type="submit" id="btnSubmit" class="btn btn-custom btn-lg fw-bold">
+                                <span id="btnText"><i class="fas fa-paper-plane me-2"></i>Kirim Pendaftaran</span>
+                                <span id="btnLoading" class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            </button>
+                        </div>
+                    </form>
 
-    <script>
-        function sapaPengunjung() {
-            alert("Halo! Selamat datang di website saya!");
-        }
-    </script>
+                </div>
+            </div>
+        </div>
+    </section>
 
-</body>
-</html>
-```
+    <!-- AREA BUKTI PENDAFTARAN (Dibuat Muncul Setelah Submit / Saat Cetak) -->
+    <section id="buktiPendaftaran" class="container my-5">
+        <div class="card border-dark p-4 mx-auto" style="max-width: 600px; border: 2px dashed #000;">
+            <div class="text-center mb-4">
+                <h4 class="fw-bold mb-0">PONDOK PESANTREN AL-HIKMAH</h4>
+                <p class="small text-muted mb-0">Jl. Raya Pondok No. 12, Tulungagung, Jawa Timur</p>
+                <hr>
+                <h5 class="bg-dark text-white p-2 d-inline-block">KARTU BUKTI PENDAFTARAN (ONLINE)</h5>
+            </div>
+            <table class="table table-borderless fs-5">
+                <tr>
+                    <td width="40%"><strong>No. Registrasi</strong></td>
+                    <td>: <span id="resNo" class="fw-bold text-danger"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Nama Santri</strong></td>
+                    <td>: <span id="resNama"></span></td>
+                </tr>
+                <tr>
+                    <td><strong>Jenis Kelamin</strong></td>
+
